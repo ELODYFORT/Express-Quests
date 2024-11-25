@@ -18,24 +18,4 @@ database
 		console.error(err);
 	});
 
-database
-	.query("select * from movies")
-	.then(([movies]) => {
-		console.log(movies);
-	})
-	.catch((err) => {
-		console.error(err);
-	});
-const getusers = (req, res) => {
-	database
-		.query("select * from users")
-		.then(([users]) => {
-			res.status(200).json(users); // use res.json instead of console.log
-		})
-		.catch((err) => {
-			console.error(err);
-			res.sendStatus(500);
-		});
-};
-
-module.exports = database;
+module.exports = { getMovies, getusers };
