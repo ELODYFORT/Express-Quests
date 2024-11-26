@@ -1,3 +1,5 @@
+const database = require("../../database");
+
 const movies = [
 	{
 		id: 1,
@@ -54,7 +56,8 @@ const getMovies = (req, res) => {
 };
 
 const getMovieById = (req, res) => {
-	const id = parseInt(req.params.id);
+	// biome-ignore lint/style/useNumberNamespace: <explanation>
+	const id = parseInt(req.params.id, 10);
 
 	const movie = movies.find((movie) => movie.id === id);
 
@@ -65,7 +68,27 @@ const getMovieById = (req, res) => {
 	}
 };
 
+const postMovie = (req, res) => {
+	console.log(req.body);
+	const { title, director, year, color, duration } = req.body;
+	res.send("Post route is working");
+
+	database
+		.query(
+			"INSERT INTO movies(title, director, year, color, duration) VALUES (?, ?, ?, ?, ?)",
+			[title, director, year, color, duration],
+		)
+		.then(([result]) => {
+			res.status(200).send({ id: result.insertId });
+		})
+		.catch((err) => {
+			console.error(err);
+			res.sendStatus(500);
+		});
+};
+
 module.exports = {
 	getMovies,
 	getMovieById,
+	postMovie,
 };

@@ -18,4 +18,4 @@ database
 		console.error(err);
 	});
 
-module.exports = { getMovies, getusers };
+module.exports = database;

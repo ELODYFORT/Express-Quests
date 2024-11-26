@@ -63,7 +63,8 @@ const getUsers = (req, res) => {
 // Route pour récupérer un utilisateur spécifique par son ID
 const getUsersById = (req, res) => {
 	// Extraire l'ID depuis les paramètres de l'URL et le convertir en entier
-	const id = parseInt(req.params.id);
+	// biome-ignore lint/style/useNumberNamespace: <explanation>
+	const id = parseInt(req.params.id, 10);
 
 	// Rechercher l'utilisateur correspondant dans le tableau 'users'
 	const user = users.find((user) => user.id === id);
